@@ -1,0 +1,4 @@
+name: MineBansAntiSpam
+version: 0.1
+main: com.minebans.antispam.AntiSpam
+depend: [MineBans]
