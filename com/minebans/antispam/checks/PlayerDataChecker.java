@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 
 import com.minebans.antispam.AntiSpam;
 import com.minebans.antispam.data.PlayerData;
+import com.minebans.antispam.events.PlayerSpamDetectedEvent;
 import com.minebans.util.ListUtils;
 
 public class PlayerDataChecker implements Runnable {
@@ -72,6 +73,8 @@ public class PlayerDataChecker implements Runnable {
 			playerData = entry.getValue();
 			
 			if (this.isChatSpamer(playerData) || this.isLoginSpaammer(playerData) || this.isLogoutSpaammer(playerData)){
+				plugin.pluginManager.callEvent(new PlayerSpamDetectedEvent(playerName));
+				
 				plugin.mineBans.tempBanPlayer(playerName, 600);
 				plugin.dataManager.unregisterPlayer(playerName);
 			}else{

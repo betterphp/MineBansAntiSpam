@@ -16,7 +16,7 @@ public class AntiSpam extends JavaPlugin {
 	protected PluginLogger log;
 	
 	protected Server server;
-	protected PluginManager pluginManager;
+	public PluginManager pluginManager;
 	protected BukkitScheduler scheduler;
 	
 	public PlayerDataManager dataManager;
