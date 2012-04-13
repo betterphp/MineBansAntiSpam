@@ -2,6 +2,8 @@ package com.minebans.antispam.data;
 
 import java.util.ArrayList;
 
+import org.bukkit.Location;
+
 public class PlayerData {
 	
 	// delays between the last 50 logins and logout
@@ -24,6 +26,9 @@ public class PlayerData {
 	
 	// the time the last message was sent
 	public long lastMessageTime;
+	
+	// the location the player had on joining the game.
+	public Location joinLocation;
 	
 	public PlayerData(){
 		this.loginDelays = new ArrayList<Long>();

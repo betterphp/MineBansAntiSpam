@@ -7,6 +7,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 import com.minebans.MineBans;
 import com.minebans.antispam.checks.PlayerDataChecker;
+import com.minebans.antispam.checks.PlayerLocationCheck;
 import com.minebans.antispam.data.PlayerDataListener;
 import com.minebans.pluginapi.MineBansPluginAPI;
 import com.minebans.util.PluginLogger;
@@ -35,6 +36,7 @@ public class AntiSpam extends JavaPlugin {
 		this.mineBans = ((MineBans) this.pluginManager.getPlugin("MineBans")).getPluginAPI(this);
 		
 		this.pluginManager.registerEvents(new PlayerDataListener(this), this);
+		this.pluginManager.registerEvents(new PlayerLocationCheck(this), this);
 		
 		this.scheduler.scheduleSyncRepeatingTask(this, new PlayerDataChecker(this), 100, 100);
 		this.scheduler.scheduleSyncRepeatingTask(this, new CleanUpTask(this), 36000, 36000);

@@ -1,5 +1,6 @@
 package com.minebans.antispam.data;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -20,7 +21,9 @@ public class PlayerDataListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerJoin(PlayerJoinEvent event){
-		String playerName = event.getPlayer().getName();
+		Player player = event.getPlayer();
+		
+		String playerName = player.getName();
 		
 		if (plugin.dataManager.gotDataFor(playerName) == false){
 			plugin.dataManager.registerPlayer(playerName);
@@ -40,6 +43,8 @@ public class PlayerDataListener implements Listener {
 		}
 		
 		playerData.lastLoginTime = currentTime;
+		
+		playerData.joinLocation = player.getLocation();
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR)

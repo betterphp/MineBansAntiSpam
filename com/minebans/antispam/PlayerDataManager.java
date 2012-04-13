@@ -7,7 +7,6 @@ import java.util.Set;
 import com.minebans.antispam.data.PlayerData;
 import com.minebans.antispam.data.ServerData;
 
-
 public class PlayerDataManager {
 	
 	private HashMap<String, PlayerData> playerData;
