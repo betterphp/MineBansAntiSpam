@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import com.minebans.antispam.AntiSpam;
 import com.minebans.antispam.data.PlayerData;
 import com.minebans.antispam.events.PlayerSpamDetectedEvent;
-import com.minebans.util.ListUtils;
+import com.minebans.antispam.util.ListUtils;
 
 public class PlayerDataChecker implements Runnable {
 	
