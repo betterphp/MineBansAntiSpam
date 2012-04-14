@@ -26,6 +26,8 @@ public class PlayerDataListener implements Listener {
 		
 		String playerName = player.getName();
 		
+		System.out.println(playerName + " JOIN");
+		
 		if (plugin.dataManager.gotDataFor(playerName) == false){
 			plugin.dataManager.registerPlayer(playerName);
 		}
@@ -75,6 +77,11 @@ public class PlayerDataListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerTeleport(PlayerTeleportEvent event){
 		String playerName = event.getPlayer().getName();
+		
+		// Orebfuscator seems to cause a teleport event to be fired before the join event.
+		if (plugin.dataManager.gotDataFor(playerName) == false){
+			return;
+		}
 		
 		PlayerData playerData = plugin.dataManager.getPlayerData(playerName);
 		
