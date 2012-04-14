@@ -74,7 +74,9 @@ public class PlayerDataListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerTeleport(PlayerTeleportEvent event){
-		PlayerData playerData = plugin.dataManager.getPlayerData(event.getPlayer().getName());
+		String playerName = event.getPlayer().getName();
+		
+		PlayerData playerData = plugin.dataManager.getPlayerData(playerName);
 		
 		if (event.getFrom().equals(playerData.joinLocation)){
 			playerData.joinLocation = event.getTo();
@@ -87,6 +89,12 @@ public class PlayerDataListener implements Listener {
 		long currentTime = System.currentTimeMillis();
 		
 		++playerData.messageCount;
+		
+		// Some mods send chat on join, and some players have more than 1 mod.
+		// So let the player send 5 fast messages within the first 4 seconds.
+		if (currentTime - playerData.lastLoginTime < 4000 && playerData.messageCount <= 5){
+			return;
+		}
 		
 		if (playerData.lastMessageTime != 0L){
 			playerData.messageDelays.add(currentTime - playerData.lastMessageTime);

@@ -72,6 +72,17 @@ public class PlayerDataChecker implements Runnable {
 			playerName = entry.getKey();
 			playerData = entry.getValue();
 			
+			/* Prepend a slash to this line to toggle this block.
+			System.out.println("Message Count: " + playerData.messageCount);
+			System.out.println("Message Delays: " + ListUtils.implode(" ", playerData.messageDelays));
+			
+			System.out.println("Login Count: " + playerData.loginCount);
+			System.out.println("Login Delays: " + ListUtils.implode(" ", playerData.loginDelays));
+			
+			System.out.println("Logout Count: " + playerData.logoutCount);
+			System.out.println("Logout Delays: " + ListUtils.implode(" ", playerData.logoutDelays));
+			//*/
+			
 			if (this.isChatSpamer(playerData) || this.isLoginSpaammer(playerData) || this.isLogoutSpaammer(playerData)){
 				plugin.pluginManager.callEvent(new PlayerSpamDetectedEvent(playerName));
 				

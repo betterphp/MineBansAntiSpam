@@ -24,7 +24,7 @@ public class PlayerLocationCheck implements Listener {
 		Player player = event.getPlayer();
 		PlayerData data = plugin.dataManager.getPlayerData(player.getName());
 		
-		// TODO: Test how easy it is to move back to your exact join location.
+		// The vanilla client won't even teleport back to the exact spawn location so this seems fine.
 		if (player.getLocation().equals(data.joinLocation)){
 			event.setCancelled(true);
 			player.sendMessage(ChatColor.RED + "You cannot send chat messages until you have left your join location");
