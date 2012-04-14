@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 import com.minebans.antispam.AntiSpam;
 
@@ -69,6 +70,15 @@ public class PlayerDataListener implements Listener {
 		}
 		
 		playerData.lastLogoutTime = currentTime;
+	}
+	
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void onPlayerTeleport(PlayerTeleportEvent event){
+		PlayerData playerData = plugin.dataManager.getPlayerData(event.getPlayer().getName());
+		
+		if (event.getFrom().equals(playerData.joinLocation)){
+			playerData.joinLocation = event.getTo();
+		}
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
