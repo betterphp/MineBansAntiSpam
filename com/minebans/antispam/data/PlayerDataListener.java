@@ -81,7 +81,7 @@ public class PlayerDataListener implements Listener {
 		}
 	}
 	
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerChat(PlayerChatEvent event){
 		PlayerData playerData = plugin.dataManager.getPlayerData(event.getPlayer().getName());
 		long currentTime = System.currentTimeMillis();
@@ -99,7 +99,7 @@ public class PlayerDataListener implements Listener {
 		playerData.lastMessageTime = currentTime;
 	}
 	
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerCommand(PlayerCommandPreprocessEvent event){
 		this.onPlayerChat(event);
 	}
