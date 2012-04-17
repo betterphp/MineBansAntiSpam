@@ -1,5 +1,7 @@
 package com.minebans.antispam.data;
 
+import java.util.ArrayList;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,9 +18,20 @@ import com.minebans.antispam.AntiSpam;
 public class PlayerDataListener implements Listener {
 	
 	private AntiSpam plugin;
+	private ArrayList<String> highFreqCmds;
 	
 	public PlayerDataListener(AntiSpam plugin){
 		this.plugin = plugin;
+		this.highFreqCmds = new ArrayList<String>();
+		
+		this.highFreqCmds.add("give");
+		this.highFreqCmds.add("item");
+		this.highFreqCmds.add("i");
+		this.highFreqCmds.add("help");
+		
+		for (int i = this.highFreqCmds.size(); i > 0; --i){
+			this.highFreqCmds.set(i, "/" + this.highFreqCmds.get(i) + " ");
+		}
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR)
@@ -130,6 +143,18 @@ public class PlayerDataListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerCommand(PlayerCommandPreprocessEvent event){
+		String message = event.getMessage();
+		Long time = event.getPlayer().getWorld().getTime();
+		
+		// This should ignore roughly half of the fast commands
+		if (time % 2 == 0){
+			for (String cmd : this.highFreqCmds){
+				if (message.startsWith(cmd)){
+					return;
+				}
+			}
+		}
+		
 		this.onPlayerChat(event);
 	}
 	
