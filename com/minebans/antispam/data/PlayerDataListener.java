@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import com.minebans.antispam.AntiSpam;
@@ -25,8 +26,6 @@ public class PlayerDataListener implements Listener {
 		Player player = event.getPlayer();
 		
 		String playerName = player.getName();
-		
-		System.out.println(playerName + " JOIN");
 		
 		if (plugin.dataManager.gotDataFor(playerName) == false){
 			plugin.dataManager.registerPlayer(playerName);
@@ -78,7 +77,6 @@ public class PlayerDataListener implements Listener {
 	public void onPlayerTeleport(PlayerTeleportEvent event){
 		String playerName = event.getPlayer().getName();
 		
-		// Orebfuscator seems to cause a teleport event to be fired before the join event.
 		if (plugin.dataManager.gotDataFor(playerName) == false){
 			return;
 		}
@@ -87,6 +85,22 @@ public class PlayerDataListener implements Listener {
 		
 		if (event.getFrom().equals(playerData.joinLocation)){
 			playerData.joinLocation = event.getTo();
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void onPlayerRespawn(PlayerRespawnEvent event){
+		Player player = event.getPlayer();
+		String playerName = player.getName();
+		
+		if (plugin.dataManager.gotDataFor(playerName) == false){
+			return;
+		}
+		
+		PlayerData playerData = plugin.dataManager.getPlayerData(playerName);
+		
+		if (player.getLocation().equals(playerData.joinLocation)){
+			playerData.joinLocation = event.getRespawnLocation();
 		}
 	}
 	
