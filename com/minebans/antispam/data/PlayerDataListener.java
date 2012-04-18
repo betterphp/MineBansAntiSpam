@@ -35,7 +35,7 @@ public class PlayerDataListener implements Listener {
 		this.highFreqCmds.add("/hpos2");
 		this.highFreqCmds.add("/we");
 		
-		for (int i = this.highFreqCmds.size(); i > 0; --i){
+		for (int i = this.highFreqCmds.size() - 1; i >= 0; --i){
 			this.highFreqCmds.set(i, "/" + this.highFreqCmds.get(i));
 		}
 	}
