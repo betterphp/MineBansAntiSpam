@@ -49,7 +49,7 @@ public class PlayerDataChecker implements Runnable {
 	}
 	
 	private boolean isChatSpamer(PlayerData playerData){
-		if (playerData.messageCount >= 8){
+		if (playerData.messageCount >= 12){
 			return true;
 		}
 		
@@ -57,7 +57,7 @@ public class PlayerDataChecker implements Runnable {
 			return false;
 		}
 		
-		if (Collections.min(playerData.messageDelays) < 100){
+		if (Collections.min(playerData.messageDelays) < 80){
 			return true;
 		}
 		
