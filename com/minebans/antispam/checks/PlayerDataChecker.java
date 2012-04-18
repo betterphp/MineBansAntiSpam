@@ -3,6 +3,8 @@ package com.minebans.antispam.checks;
 import java.util.Collections;
 import java.util.Map.Entry;
 
+import org.bukkit.ChatColor;
+
 import com.minebans.antispam.AntiSpam;
 import com.minebans.antispam.data.PlayerData;
 import com.minebans.antispam.events.PlayerSpamDetectedEvent;
@@ -88,6 +90,7 @@ public class PlayerDataChecker implements Runnable {
 				
 				plugin.mineBans.tempBanPlayer(playerName, 600);
 				plugin.dataManager.unregisterPlayer(playerName);
+				plugin.server.broadcastMessage(plugin.formatMessage(ChatColor.GREEN + playerName + " has been banned for spamming."));
 			}else{
 				playerData.loginCount = 0;
 				playerData.logoutCount = 0;
