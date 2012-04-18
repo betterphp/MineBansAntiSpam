@@ -131,8 +131,8 @@ public class PlayerDataListener implements Listener {
 		++playerData.messageCount;
 		
 		// Some mods send chat on join, and some players have more than 1 mod.
-		// So let the player send 5 fast messages within the first 4 seconds.
-		if (currentTime - playerData.lastLoginTime < 4000 && playerData.messageCount <= 5){
+		// So let the player send 6 fast messages within the first 5 seconds.
+		if (currentTime - playerData.lastLoginTime < 5000 && playerData.messageCount <= 6){
 			return;
 		}
 		
