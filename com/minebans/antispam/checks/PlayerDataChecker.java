@@ -88,8 +88,9 @@ public class PlayerDataChecker implements Runnable {
 			if (this.isChatSpamer(playerData) || this.isLoginSpaammer(playerData) || this.isLogoutSpaammer(playerData)){
 				plugin.pluginManager.callEvent(new PlayerSpamDetectedEvent(playerName));
 				
-				plugin.mineBans.tempBanPlayer(playerName, 600);
+				plugin.mineBans.tempBanPlayer(playerName, 900);
 				plugin.dataManager.unregisterPlayer(playerName);
+				
 				plugin.server.broadcastMessage(plugin.formatMessage(ChatColor.GREEN + playerName + " has been banned for spamming."));
 			}else{
 				playerData.loginCount = 0;
