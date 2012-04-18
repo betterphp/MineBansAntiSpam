@@ -22,10 +22,15 @@ public class PlayerLocationCheck implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onPlayerChat(PlayerChatEvent event){
 		Player player = event.getPlayer();
-		PlayerData data = plugin.dataManager.getPlayerData(player.getName());
+		PlayerData playerData = plugin.dataManager.getPlayerData(player.getName());
+		
+		// See lines 133 and 134 of PlayerDataListener.java
+		if (System.currentTimeMillis() - playerData.lastLoginTime < 5000 && playerData.messageCount <= 6){
+			return;
+		}
 		
 		// The vanilla client won't even teleport back to the exact spawn location so this seems fine.
-		if (player.getLocation().equals(data.joinLocation)){
+		if (player.getLocation().equals(playerData.joinLocation)){
 			event.setCancelled(true);
 			player.sendMessage(ChatColor.RED + "You cannot send chat messages until you have left your join location");
 		}
