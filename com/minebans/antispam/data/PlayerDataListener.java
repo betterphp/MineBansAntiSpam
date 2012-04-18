@@ -28,9 +28,15 @@ public class PlayerDataListener implements Listener {
 		this.highFreqCmds.add("item");
 		this.highFreqCmds.add("i");
 		this.highFreqCmds.add("help");
+		this.highFreqCmds.add("/set");
+		this.highFreqCmds.add("/pos1");
+		this.highFreqCmds.add("/pos2");
+		this.highFreqCmds.add("/hpos1");
+		this.highFreqCmds.add("/hpos2");
+		this.highFreqCmds.add("/we");
 		
 		for (int i = this.highFreqCmds.size(); i > 0; --i){
-			this.highFreqCmds.set(i, "/" + this.highFreqCmds.get(i) + " ");
+			this.highFreqCmds.set(i, "/" + this.highFreqCmds.get(i));
 		}
 	}
 	
@@ -149,7 +155,7 @@ public class PlayerDataListener implements Listener {
 		// This should ignore roughly half of the fast commands
 		if (time % 2 == 0){
 			for (String cmd : this.highFreqCmds){
-				if (message.startsWith(cmd)){
+				if (message.equalsIgnoreCase(cmd) && message.startsWith(cmd + " ")){
 					return;
 				}
 			}
