@@ -2,7 +2,6 @@ package com.minebans.antispam.data;
 
 import java.util.ArrayList;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -77,16 +75,6 @@ public class PlayerDataListener implements Listener {
 		if (Math.rint(joinY) == joinY){
 			player.teleport(playerData.joinLocation.add(0D, 0.015D, 0D));
 		}
-	}
-	
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onPlayerMove(PlayerMoveEvent event){
-		Player player = event.getPlayer();
-		Location from = event.getFrom();
-		Location to = event.getTo();
-		
-		player.sendMessage("From: " + from.getX() + ", " + from.getY() + ", " + from.getZ());
-		player.sendMessage("To:   " + to.getX() + ", " + to.getY() + ", " + to.getZ());
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR)
