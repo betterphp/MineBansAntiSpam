@@ -24,11 +24,6 @@ public class PlayerLocationCheck implements Listener {
 		Player player = event.getPlayer();
 		PlayerData playerData = plugin.dataManager.getPlayerData(player.getName());
 		
-		// See lines 133 and 134 of PlayerDataListener.java
-		if (System.currentTimeMillis() - playerData.lastLoginTime < 5000 && playerData.messageCount <= 6){
-			return;
-		}
-		
 		// The vanilla client won't even teleport back to the exact spawn location so this seems fine.
 		if (player.getLocation().equals(playerData.joinLocation)){
 			event.setCancelled(true);

@@ -2,6 +2,7 @@ package com.minebans.antispam.data;
 
 import java.util.ArrayList;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -9,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -66,6 +68,25 @@ public class PlayerDataListener implements Listener {
 		playerData.lastLoginTime = currentTime;
 		
 		playerData.joinLocation = player.getLocation();
+		
+		// Give the player a tiny fall on join, this stops the location check getting in the way for normal players.
+		// 0.15 was found experimentally, it's just enough to make the client reliably send a move packet without
+		// jamming people into the ceiling.
+		double joinY = playerData.joinLocation.getY();
+		
+		if (Math.rint(joinY) == joinY){
+			player.teleport(playerData.joinLocation.add(0D, 0.015D, 0D));
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onPlayerMove(PlayerMoveEvent event){
+		Player player = event.getPlayer();
+		Location from = event.getFrom();
+		Location to = event.getTo();
+		
+		player.sendMessage("From: " + from.getX() + ", " + from.getY() + ", " + from.getZ());
+		player.sendMessage("To:   " + to.getX() + ", " + to.getY() + ", " + to.getZ());
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR)
