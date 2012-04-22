@@ -20,6 +20,9 @@ public class PlayerData {
 	// number of messages sent during this 100 ticks
 	public int messageCount;
 	
+	// the number of warnings the player has had.
+	public int warningCount;
+	
 	// the time the player last logged in and out
 	public long lastLoginTime;
 	public long lastLogoutTime;
@@ -41,10 +44,39 @@ public class PlayerData {
 		
 		this.messageCount = 0;
 		
+		this.warningCount = 0;
+		
 		this.lastLoginTime = 0L;
 		this.lastLogoutTime = 0L;
 		
 		this.lastMessageTime = 0L;
+	}
+	
+	public void resetDelays(){
+		this.loginDelays.clear();
+		this.logoutDelays.clear();
+		
+		this.messageDelays.clear();
+	}
+	
+	public void resetCounters(){
+		this.loginCount = 0;
+		this.logoutCount = 0;
+		
+		this.messageCount = 0;
+	}
+	
+	public void resetTimes(){
+		this.lastLoginTime = 0L;
+		this.lastLogoutTime = 0L;
+		
+		this.lastMessageTime = 0L;
+	}
+	
+	public void resetAll(){
+		this.resetDelays();
+		this.resetCounters();
+		this.resetTimes();
 	}
 	
 }

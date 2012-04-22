@@ -42,7 +42,7 @@ public class AntiSpam extends JavaPlugin {
 		this.pluginManager.registerEvents(new PlayerDataListener(this), this);
 		this.pluginManager.registerEvents(new PlayerLocationCheck(this), this);
 		
-		this.scheduler.scheduleSyncRepeatingTask(this, new PlayerDataChecker(this), 100, 100);
+		this.scheduler.scheduleSyncRepeatingTask(this, new PlayerDataChecker(this), 50, 50); // 50 ticks = 2.5 seconds
 		this.scheduler.scheduleSyncRepeatingTask(this, new CleanUpTask(this), 36000, 36000);
 		
 		this.log.info("Enabled");

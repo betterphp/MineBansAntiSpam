@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Map.Entry;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import com.minebans.antispam.AntiSpam;
 import com.minebans.antispam.data.PlayerData;
@@ -18,8 +19,8 @@ public class PlayerDataChecker implements Runnable {
 		this.plugin = plugin;
 	}
 	
-	private boolean isLoginSpaammer(PlayerData playerData){
-		if (playerData.loginCount >= 5){
+	private boolean isLoginSpammer(PlayerData playerData){
+		if (playerData.loginCount >= 4){
 			return true;
 		}
 		
@@ -27,15 +28,15 @@ public class PlayerDataChecker implements Runnable {
 			return false;
 		}
 		
-		if (Collections.min(playerData.loginDelays) < 150){
+		if (Collections.min(playerData.loginDelays) < 140){
 			return true;
 		}
 		
-		return (ListUtils.stddev(playerData.loginDelays) < 20);
+		return (ListUtils.stddev(playerData.loginDelays) < 25);
 	}
 	
-	private boolean isLogoutSpaammer(PlayerData playerData){
-		if (playerData.logoutCount >= 5){
+	private boolean isLogoutSpammer(PlayerData playerData){
+		if (playerData.logoutCount >= 4){
 			return true;
 		}
 		
@@ -43,15 +44,15 @@ public class PlayerDataChecker implements Runnable {
 			return false;
 		}
 		
-		if (Collections.min(playerData.logoutDelays) < 150){
+		if (Collections.min(playerData.logoutDelays) < 140){
 			return true;
 		}
 		
-		return (ListUtils.stddev(playerData.logoutDelays) < 20);
+		return (ListUtils.stddev(playerData.logoutDelays) < 25);
 	}
 	
 	private boolean isChatSpamer(PlayerData playerData){
-		if (playerData.messageCount >= 12){
+		if (playerData.messageCount >= 8){
 			return true;
 		}
 		
@@ -59,7 +60,7 @@ public class PlayerDataChecker implements Runnable {
 			return false;
 		}
 		
-		if (Collections.min(playerData.messageDelays) < 80){
+		if (Collections.min(playerData.messageDelays) < 100){
 			return true;
 		}
 		
@@ -74,29 +75,29 @@ public class PlayerDataChecker implements Runnable {
 			playerName = entry.getKey();
 			playerData = entry.getValue();
 			
-			/* Prepend a slash to this line to toggle this block.
-			System.out.println("Message Count: " + playerData.messageCount);
-			System.out.println("Message Delays: " + ListUtils.implode(" ", playerData.messageDelays));
-			
-			System.out.println("Login Count: " + playerData.loginCount);
-			System.out.println("Login Delays: " + ListUtils.implode(" ", playerData.loginDelays));
-			
-			System.out.println("Logout Count: " + playerData.logoutCount);
-			System.out.println("Logout Delays: " + ListUtils.implode(" ", playerData.logoutDelays));
-			//*/
-			
-			if (this.isChatSpamer(playerData) || this.isLoginSpaammer(playerData) || this.isLogoutSpaammer(playerData)){
+			if (this.isChatSpamer(playerData) || this.isLoginSpammer(playerData) || this.isLogoutSpammer(playerData)){
 				plugin.pluginManager.callEvent(new PlayerSpamDetectedEvent(playerName));
 				
-				plugin.mineBans.tempBanPlayer(playerName, 900);
-				plugin.dataManager.unregisterPlayer(playerName);
-				
-				plugin.server.broadcastMessage(plugin.formatMessage(ChatColor.GREEN + playerName + " has been banned for spamming."));
+				if (playerData.warningCount > 3){
+					plugin.mineBans.tempBanPlayer(playerName, 1800);
+					plugin.dataManager.unregisterPlayer(playerName);
+					
+					plugin.server.broadcastMessage(plugin.formatMessage(ChatColor.GREEN + playerName + " has been banned for spamming."));
+				}else{
+					++playerData.warningCount;
+					
+					Player player = plugin.server.getPlayer(playerName);
+					
+					if (player != null){
+						player.sendMessage(plugin.formatMessage(ChatColor.RED + "You have received a warning for spamming."));
+						player.sendMessage(plugin.formatMessage(ChatColor.RED + "More than three of these will result in a 30 minute ban."));
+					}
+					
+					playerData.resetCounters();
+					playerData.resetDelays();
+				}
 			}else{
-				playerData.loginCount = 0;
-				playerData.logoutCount = 0;
-				
-				playerData.messageCount = 0;
+				playerData.resetCounters();
 			}
 		}
 	}
