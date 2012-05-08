@@ -1,6 +1,8 @@
 package com.minebans.antispam.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,25 +20,29 @@ import com.minebans.antispam.AntiSpam;
 public class PlayerDataListener implements Listener {
 	
 	private AntiSpam plugin;
-	private ArrayList<String> highFreqCmds;
+	private ArrayList<String> dangerousCommands;
 	
 	public PlayerDataListener(AntiSpam plugin){
 		this.plugin = plugin;
-		this.highFreqCmds = new ArrayList<String>();
+		this.dangerousCommands = new ArrayList<String>();
 		
-		this.highFreqCmds.add("give");
-		this.highFreqCmds.add("item");
-		this.highFreqCmds.add("i");
-		this.highFreqCmds.add("help");
-		this.highFreqCmds.add("/set");
-		this.highFreqCmds.add("/pos1");
-		this.highFreqCmds.add("/pos2");
-		this.highFreqCmds.add("/hpos1");
-		this.highFreqCmds.add("/hpos2");
-		this.highFreqCmds.add("/we");
+		this.dangerousCommands.add("me");
+		this.dangerousCommands.add("tell");
+		this.dangerousCommands.add("pm");
+		this.dangerousCommands.add("faction");
+		this.dangerousCommands.add("kill");
+		this.dangerousCommands.add("suicide");
 		
-		for (int i = this.highFreqCmds.size() - 1; i >= 0; --i){
-			this.highFreqCmds.set(i, "/" + this.highFreqCmds.get(i));
+		Map<String, String[]> aliases = plugin.server.getCommandAliases();
+		
+		for (String command : new ArrayList<String>(this.dangerousCommands)){
+			if (aliases.containsKey(command)){
+				this.dangerousCommands.addAll(Arrays.asList(aliases.get(command)));
+			}
+		}
+		
+		for (int i = this.dangerousCommands.size() - 1; i >= 0; --i){
+			this.dangerousCommands.set(i, "/" + this.dangerousCommands.get(i));
 		}
 	}
 	
@@ -161,15 +167,12 @@ public class PlayerDataListener implements Listener {
 		PlayerData playerData = plugin.dataManager.getPlayerData(event.getPlayer().getName());
 		
 		String message = event.getMessage();
+		String command = message.split(" ", 2)[0];
 		
-		// This should ignore roughly half of the fast commands
-		if (playerData.messageCount % 2 == 0){
-			for (String cmd : this.highFreqCmds){
-				if (message.equalsIgnoreCase(cmd) || message.startsWith(cmd + " ")){
-					++playerData.messageCount;
-					return;
-				}
-			}
+		// This should ignore roughly half of the safe commands
+		if (playerData.messageCount % 2 == 0 && !this.dangerousCommands.contains(command)){
+			++playerData.messageCount;
+			return;
 		}
 		
 		this.onPlayerChat(event);
