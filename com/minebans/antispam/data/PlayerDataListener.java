@@ -158,13 +158,15 @@ public class PlayerDataListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerCommand(PlayerCommandPreprocessEvent event){
+		PlayerData playerData = plugin.dataManager.getPlayerData(event.getPlayer().getName());
+		
 		String message = event.getMessage();
-		Long time = event.getPlayer().getWorld().getTime();
 		
 		// This should ignore roughly half of the fast commands
-		if (time % 2 == 0){
+		if (playerData.messageCount % 2 == 0){
 			for (String cmd : this.highFreqCmds){
-				if (message.equalsIgnoreCase(cmd) && message.startsWith(cmd + " ")){
+				if (message.equalsIgnoreCase(cmd) || message.startsWith(cmd + " ")){
+					++playerData.messageCount;
 					return;
 				}
 			}
