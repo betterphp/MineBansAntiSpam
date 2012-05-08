@@ -50,6 +50,10 @@ public class PlayerDataListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
 		
+		if (player.hasPermission("minebans.antispam.exempt")){
+			return;
+		}
+		
 		String playerName = player.getName();
 		
 		if (plugin.dataManager.gotDataFor(playerName) == false){
@@ -140,7 +144,13 @@ public class PlayerDataListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerChat(PlayerChatEvent event){
-		PlayerData playerData = plugin.dataManager.getPlayerData(event.getPlayer().getName());
+		String playerName = event.getPlayer().getName();
+		
+		if (plugin.dataManager.gotDataFor(playerName) == false){
+			return;
+		}
+		
+		PlayerData playerData = plugin.dataManager.getPlayerData(playerName);
 		long currentTime = System.currentTimeMillis();
 		
 		++playerData.messageCount;
@@ -164,7 +174,13 @@ public class PlayerDataListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerCommand(PlayerCommandPreprocessEvent event){
-		PlayerData playerData = plugin.dataManager.getPlayerData(event.getPlayer().getName());
+		String playerName = event.getPlayer().getName();
+		
+		if (plugin.dataManager.gotDataFor(playerName) == false){
+			return;
+		}
+		
+		PlayerData playerData = plugin.dataManager.getPlayerData(playerName);
 		
 		String message = event.getMessage();
 		String command = message.split(" ", 2)[0];

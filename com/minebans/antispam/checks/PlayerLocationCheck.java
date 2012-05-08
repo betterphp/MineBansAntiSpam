@@ -22,7 +22,13 @@ public class PlayerLocationCheck implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onPlayerChat(PlayerChatEvent event){
 		Player player = event.getPlayer();
-		PlayerData playerData = plugin.dataManager.getPlayerData(player.getName());
+		String playerName = player.getName();
+		
+		if (plugin.dataManager.gotDataFor(playerName) == false){
+			return;
+		}
+		
+		PlayerData playerData = plugin.dataManager.getPlayerData(playerName);
 		
 		// The vanilla client won't even teleport back to the exact spawn location so this seems fine.
 		if (player.getLocation().equals(playerData.joinLocation)){
