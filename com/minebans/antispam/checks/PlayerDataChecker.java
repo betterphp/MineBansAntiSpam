@@ -82,6 +82,7 @@ public class PlayerDataChecker implements Runnable {
 					plugin.mineBans.tempBanPlayer(playerName, 1800);
 					plugin.dataManager.unregisterPlayer(playerName);
 					
+					plugin.server.broadcastMessage(plugin.formatMessage(ChatColor.GREEN + playerName + " has been auto banned for spamming."));
 				}else{
 					++playerData.warningCount;
 					
