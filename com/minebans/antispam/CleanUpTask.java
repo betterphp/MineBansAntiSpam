@@ -2,14 +2,14 @@ package com.minebans.antispam;
 
 import java.util.Map.Entry;
 
+import uk.co.jacekk.bukkit.baseplugin.BaseTask;
+
 import com.minebans.antispam.data.PlayerData;
 
-public class CleanUpTask implements Runnable {
-	
-	private AntiSpam plugin;
+public class CleanUpTask extends BaseTask<AntiSpam> {
 	
 	public CleanUpTask(AntiSpam plugin){
-		this.plugin = plugin;
+		super(plugin);
 	}
 	
 	public void run(){

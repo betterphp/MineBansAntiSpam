@@ -7,7 +7,6 @@ import java.util.Map;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -15,15 +14,17 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+import uk.co.jacekk.bukkit.baseplugin.BaseListener;
+
 import com.minebans.antispam.AntiSpam;
 
-public class PlayerDataListener implements Listener {
+public class PlayerDataListener extends BaseListener<AntiSpam> {
 	
-	private AntiSpam plugin;
 	private ArrayList<String> dangerousCommands;
 	
 	public PlayerDataListener(AntiSpam plugin){
-		this.plugin = plugin;
+		super(plugin);
+		
 		this.dangerousCommands = new ArrayList<String>();
 		
 		this.dangerousCommands.add("me");

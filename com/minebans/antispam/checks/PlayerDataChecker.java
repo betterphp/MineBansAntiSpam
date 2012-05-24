@@ -6,17 +6,17 @@ import java.util.Map.Entry;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import uk.co.jacekk.bukkit.baseplugin.BaseTask;
+import uk.co.jacekk.bukkit.baseplugin.util.ListUtils;
+
 import com.minebans.antispam.AntiSpam;
 import com.minebans.antispam.data.PlayerData;
 import com.minebans.antispam.events.PlayerSpamDetectedEvent;
-import com.minebans.antispam.util.ListUtils;
 
-public class PlayerDataChecker implements Runnable {
-	
-	public AntiSpam plugin;
+public class PlayerDataChecker extends BaseTask<AntiSpam> {
 	
 	public PlayerDataChecker(AntiSpam plugin){
-		this.plugin = plugin;
+		super(plugin);
 	}
 	
 	private boolean isLoginSpammer(PlayerData playerData){

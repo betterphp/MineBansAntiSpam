@@ -1,11 +1,6 @@
 package com.minebans.antispam;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Server;
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
+import uk.co.jacekk.bukkit.baseplugin.BasePlugin;
 
 import com.minebans.MineBans;
 import com.minebans.antispam.checks.DuplicateMessageCheck;
@@ -13,28 +8,15 @@ import com.minebans.antispam.checks.PlayerDataChecker;
 import com.minebans.antispam.checks.PlayerLocationCheck;
 import com.minebans.antispam.data.PlayerDataListener;
 import com.minebans.pluginapi.MineBansPluginAPI;
-import com.minebans.util.PluginLogger;
 
-public class AntiSpam extends JavaPlugin {
-	
-	protected PluginLogger log;
-	
-	public Server server;
-	public PluginManager pluginManager;
-	public BukkitScheduler scheduler;
-	public PluginDescriptionFile pdFile;
+public class AntiSpam extends BasePlugin {
 	
 	public PlayerDataManager dataManager;
 	
 	public MineBansPluginAPI mineBans;
 	
 	public void onEnable(){
-		this.log = new com.minebans.util.PluginLogger(this);
-		
-		this.server = this.getServer();
-		this.pluginManager = this.server.getPluginManager();
-		this.scheduler = this.server.getScheduler();
-		this.pdFile = this.getDescription();
+		super.onEnable(false);
 		
 		this.dataManager = new PlayerDataManager();
 		
@@ -48,35 +30,6 @@ public class AntiSpam extends JavaPlugin {
 		this.scheduler.scheduleSyncRepeatingTask(this, new CleanUpTask(this), 36000, 36000);
 		
 		this.log.info("Enabled");
-	}
-	
-	public String formatMessage(String message, boolean colour, boolean version){
-		StringBuilder line = new StringBuilder();
-		
-		if (colour){
-			line.append(ChatColor.BLUE);
-		}
-		
-		line.append("[");
-		line.append(this.pdFile.getName());
-		
-		if (version){
-			line.append(" v");
-			line.append(this.pdFile.getVersion());
-		}
-		
-		line.append("] ");
-		line.append(message);
-		
-		return line.toString();
-	}
-	
-	public String formatMessage(String message, boolean colour){
-		return this.formatMessage(message, colour, !colour);
-	}
-	
-	public String formatMessage(String message){
-		return this.formatMessage(message, true, false);
 	}
 	
 }
