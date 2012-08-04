@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import com.minebans.antispam.AntiSpam;
@@ -19,19 +19,24 @@ public class PlayerLocationCheck implements Listener {
 		this.plugin = plugin;
 	}
 	
-	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-	public void onPlayerChat(PlayerChatEvent event){
-		Player player = event.getPlayer();
+	private boolean checkLocation(Player player){
 		String playerName = player.getName();
 		
-		if (plugin.dataManager.gotDataFor(playerName) == false){
-			return;
+		if (!plugin.dataManager.gotDataFor(playerName)){
+			return false;
 		}
 		
 		PlayerData playerData = plugin.dataManager.getPlayerData(playerName);
 		
 		// The vanilla client won't even teleport back to the exact spawn location so this seems fine.
-		if (player.getLocation().equals(playerData.joinLocation)){
+		return player.getLocation().equals(playerData.joinLocation);
+	}
+	
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+	public void onPlayerChat(AsyncPlayerChatEvent event){
+		Player player = event.getPlayer();
+		
+		if (this.checkLocation(player)){
 			event.setCancelled(true);
 			player.sendMessage(ChatColor.RED + "You cannot send chat messages until you have left your join location");
 		}
@@ -39,7 +44,12 @@ public class PlayerLocationCheck implements Listener {
 	
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onPlayerCommand(PlayerCommandPreprocessEvent event){
-		this.onPlayerChat(event);
+		Player player = event.getPlayer();
+		
+		if (this.checkLocation(player)){
+			event.setCancelled(true);
+			player.sendMessage(ChatColor.RED + "You cannot use commands until you have left your join location");
+		}
 	}
 	
 }

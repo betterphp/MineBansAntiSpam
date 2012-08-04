@@ -7,7 +7,7 @@ import java.util.Map;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -143,10 +143,7 @@ public class PlayerDataListener extends BaseListener<AntiSpam> {
 		}
 	}
 	
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onPlayerChat(PlayerChatEvent event){
-		String playerName = event.getPlayer().getName();
-		
+	private void onPlayerMessage(String playerName){
 		if (plugin.dataManager.gotDataFor(playerName) == false){
 			return;
 		}
@@ -174,6 +171,11 @@ public class PlayerDataListener extends BaseListener<AntiSpam> {
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR)
+	public void onPlayerChat(AsyncPlayerChatEvent event){
+		this.onPlayerMessage(event.getPlayer().getName());
+	}
+	
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerCommand(PlayerCommandPreprocessEvent event){
 		String playerName = event.getPlayer().getName();
 		
@@ -192,7 +194,7 @@ public class PlayerDataListener extends BaseListener<AntiSpam> {
 			return;
 		}
 		
-		this.onPlayerChat(event);
+		this.onPlayerMessage(playerName);
 	}
 	
 }
