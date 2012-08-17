@@ -17,6 +17,12 @@
 			<id>bukkit-repo</id>
 			<url>http://repo.bukkit.org/content/groups/public/</url>
 		</repository>
+		
+		<repository>
+			<id>plugin-repo</id>
+			<!-- NOTE: This just redirects to the dev.bukkit.org download links. -->
+			<url>http://bukkit.jacekk.co.uk/plugin_repo/repo/</url>
+		</repository>
 	</repositories>
 	
 	<dependencies>
