@@ -79,7 +79,7 @@ public class PlayerDataChecker extends BaseTask<AntiSpam> {
 				plugin.pluginManager.callEvent(new PlayerSpamDetectedEvent(playerName));
 				
 				if (playerData.warningCount > 3){
-					plugin.server.dispatchCommand(plugin.server.getConsoleSender(), "ban " + playerName + "1h");
+					plugin.server.dispatchCommand(plugin.server.getConsoleSender(), "ban " + playerName + " 1h");
 					plugin.dataManager.unregisterPlayer(playerName);
 					
 					plugin.server.broadcastMessage(plugin.formatMessage(ChatColor.GREEN + playerName + " has been auto banned for spamming."));
