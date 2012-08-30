@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import uk.co.jacekk.bukkit.baseplugin.BaseTask;
+import uk.co.jacekk.bukkit.baseplugin.scheduler.BaseTask;
 import uk.co.jacekk.bukkit.baseplugin.util.ListUtils;
 
 import com.minebans.antispam.AntiSpam;
