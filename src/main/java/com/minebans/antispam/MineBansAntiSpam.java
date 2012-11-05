@@ -7,7 +7,7 @@ import com.minebans.antispam.checks.PlayerMessageChecker;
 import com.minebans.antispam.data.PlayerData;
 import com.minebans.antispam.data.PlayerDataListener;
 
-public class AntiSpam extends BasePlugin {
+public class MineBansAntiSpam extends BasePlugin {
 	
 	public PlayerDataManager dataManager;
 	

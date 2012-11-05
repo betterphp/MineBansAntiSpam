@@ -16,13 +16,13 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 import uk.co.jacekk.bukkit.baseplugin.v4.event.BaseListener;
 
-import com.minebans.antispam.AntiSpam;
+import com.minebans.antispam.MineBansAntiSpam;
 
-public class PlayerDataListener extends BaseListener<AntiSpam> {
+public class PlayerDataListener extends BaseListener<MineBansAntiSpam> {
 	
 	private ArrayList<String> dangerousCommands;
 	
-	public PlayerDataListener(AntiSpam plugin){
+	public PlayerDataListener(MineBansAntiSpam plugin){
 		super(plugin);
 		
 		this.dangerousCommands = new ArrayList<String>();

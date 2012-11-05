@@ -6,9 +6,9 @@ import uk.co.jacekk.bukkit.baseplugin.v4.scheduler.BaseTask;
 
 import com.minebans.antispam.data.PlayerData;
 
-public class CleanUpTask extends BaseTask<AntiSpam> {
+public class CleanUpTask extends BaseTask<MineBansAntiSpam> {
 	
-	public CleanUpTask(AntiSpam plugin){
+	public CleanUpTask(MineBansAntiSpam plugin){
 		super(plugin);
 	}
 	

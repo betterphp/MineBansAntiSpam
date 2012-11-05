@@ -8,14 +8,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
-import com.minebans.antispam.AntiSpam;
+import com.minebans.antispam.MineBansAntiSpam;
 import com.minebans.antispam.data.PlayerData;
 
 public class PlayerMessageChecker implements Listener {
 	
-	private AntiSpam plugin;
+	private MineBansAntiSpam plugin;
 	
-	public PlayerMessageChecker(AntiSpam plugin){
+	public PlayerMessageChecker(MineBansAntiSpam plugin){
 		this.plugin = plugin;
 	}
 	

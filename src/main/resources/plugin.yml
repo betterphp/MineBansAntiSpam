@@ -1,6 +1,6 @@
 name: MineBansAntiSpam
 version: 0.5
-main: com.minebans.antispam.AntiSpam
+main: com.minebans.antispam.MineBansAntiSpam
 permissions:
     minebans.antispam.exempt:
         description: Players will this permission will be allowed to spam.

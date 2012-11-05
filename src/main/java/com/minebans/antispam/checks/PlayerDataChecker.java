@@ -9,13 +9,13 @@ import org.bukkit.entity.Player;
 import uk.co.jacekk.bukkit.baseplugin.v4.scheduler.BaseTask;
 import uk.co.jacekk.bukkit.baseplugin.v4.util.ListUtils;
 
-import com.minebans.antispam.AntiSpam;
+import com.minebans.antispam.MineBansAntiSpam;
 import com.minebans.antispam.data.PlayerData;
 import com.minebans.antispam.events.PlayerSpamDetectedEvent;
 
-public class PlayerDataChecker extends BaseTask<AntiSpam> {
+public class PlayerDataChecker extends BaseTask<MineBansAntiSpam> {
 	
-	public PlayerDataChecker(AntiSpam plugin){
+	public PlayerDataChecker(MineBansAntiSpam plugin){
 		super(plugin);
 	}
 	
