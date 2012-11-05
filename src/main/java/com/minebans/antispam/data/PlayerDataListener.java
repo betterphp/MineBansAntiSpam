@@ -143,7 +143,7 @@ public class PlayerDataListener extends BaseListener<AntiSpam> {
 		}
 	}
 	
-	private void onPlayerMessage(String playerName){
+	private void onPlayerMessage(String playerName, String message){
 		if (plugin.dataManager.gotDataFor(playerName) == false){
 			return;
 		}
@@ -168,11 +168,12 @@ public class PlayerDataListener extends BaseListener<AntiSpam> {
 		}
 		
 		playerData.lastMessageTime = currentTime;
+		playerData.lastMessageCleaned = message.replaceAll("[^a-zA-Z]", "");
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerChat(AsyncPlayerChatEvent event){
-		this.onPlayerMessage(event.getPlayer().getName());
+		this.onPlayerMessage(event.getPlayer().getName(), event.getMessage());
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR)
@@ -194,7 +195,7 @@ public class PlayerDataListener extends BaseListener<AntiSpam> {
 			return;
 		}
 		
-		this.onPlayerMessage(playerName);
+		this.onPlayerMessage(playerName, message);
 	}
 	
 }

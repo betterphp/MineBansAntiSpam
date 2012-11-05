@@ -67,6 +67,11 @@ public class PlayerData {
 	public long lastMessageTime;
 	
 	/**
+	 * The last message that was sent with any special characters removed.
+	 */
+	public String lastMessageCleaned;
+	
+	/**
 	 * The location that the player joined at.
 	 */
 	public Location joinLocation;
@@ -88,6 +93,8 @@ public class PlayerData {
 		this.lastLogoutTime = 0L;
 		
 		this.lastMessageTime = 0L;
+		
+		this.lastMessageCleaned = "";
 	}
 	
 	/**

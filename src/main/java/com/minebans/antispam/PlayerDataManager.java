@@ -5,16 +5,13 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.minebans.antispam.data.PlayerData;
-import com.minebans.antispam.data.ServerData;
 
 public class PlayerDataManager {
 	
 	private HashMap<String, PlayerData> playerData;
-	private ServerData serverData;
 	
 	public PlayerDataManager(){
 		this.playerData = new HashMap<String, PlayerData>();
-		this.serverData = new ServerData();
 	}
 	
 	/**
@@ -68,15 +65,6 @@ public class PlayerDataManager {
 	 */
 	public Set<Entry<String, PlayerData>> getAll(){
 		return ((HashMap<String, PlayerData>) this.playerData.clone()).entrySet();
-	}
-	
-	/**
-	 * Gets the {@link serverData}
-	 * 
-	 * @return The data.
-	 */
-	public ServerData getServerData(){
-		return this.serverData;
 	}
 	
 }

@@ -11,15 +11,15 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import com.minebans.antispam.AntiSpam;
 import com.minebans.antispam.data.PlayerData;
 
-public class PlayerLocationCheck implements Listener {
+public class PlayerMessageChecker implements Listener {
 	
 	private AntiSpam plugin;
 	
-	public PlayerLocationCheck(AntiSpam plugin){
+	public PlayerMessageChecker(AntiSpam plugin){
 		this.plugin = plugin;
 	}
 	
-	private boolean checkLocation(Player player){
+	private boolean checkMessage(Player player, String message){
 		String playerName = player.getName();
 		
 		if (!plugin.dataManager.gotDataFor(playerName)){
@@ -28,27 +28,30 @@ public class PlayerLocationCheck implements Listener {
 		
 		PlayerData playerData = plugin.dataManager.getPlayerData(playerName);
 		
-		// The vanilla client won't even teleport back to the exact spawn location so this seems fine.
-		return player.getLocation().equals(playerData.joinLocation);
+		if (player.getLocation().equals(playerData.joinLocation)){
+			player.sendMessage(ChatColor.RED + "You cannot send chat messages until you have left your join location");
+			return true;
+		}
+		
+		if (message.replaceAll("[^a-zA-Z]", "").equalsIgnoreCase(playerData.lastMessageCleaned)){
+			player.sendMessage(ChatColor.RED + "You cannot repeat your last message.");
+			return true;
+		}
+		
+		return false;
 	}
 	
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onPlayerChat(AsyncPlayerChatEvent event){
-		Player player = event.getPlayer();
-		
-		if (this.checkLocation(player)){
+		if (this.checkMessage(event.getPlayer(), event.getMessage())){
 			event.setCancelled(true);
-			player.sendMessage(ChatColor.RED + "You cannot send chat messages until you have left your join location");
 		}
 	}
 	
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onPlayerCommand(PlayerCommandPreprocessEvent event){
-		Player player = event.getPlayer();
-		
-		if (this.checkLocation(player)){
+		if (this.checkMessage(event.getPlayer(), event.getMessage())){
 			event.setCancelled(true);
-			player.sendMessage(ChatColor.RED + "You cannot use commands until you have left your join location");
 		}
 	}
 	
