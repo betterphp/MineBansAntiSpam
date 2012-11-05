@@ -76,25 +76,29 @@ public class PlayerDataChecker extends BaseTask<AntiSpam> {
 			playerData = entry.getValue();
 			
 			if (this.isChatSpamer(playerData) || this.isLoginSpammer(playerData) || this.isLogoutSpammer(playerData)){
-				plugin.pluginManager.callEvent(new PlayerSpamDetectedEvent(playerName));
+				PlayerSpamDetectedEvent event = new PlayerSpamDetectedEvent(playerName);
 				
-				if (playerData.warningCount > 3){
-					plugin.server.dispatchCommand(plugin.server.getConsoleSender(), "ban " + playerName + " 1h");
-					plugin.dataManager.unregisterPlayer(playerName);
-					
-					plugin.server.broadcastMessage(plugin.formatMessage(ChatColor.GREEN + playerName + " has been banned for spamming."));
-				}else{
-					++playerData.warningCount;
-					
-					Player player = plugin.server.getPlayer(playerName);
-					
-					if (player != null){
-						player.sendMessage(plugin.formatMessage(ChatColor.RED + "You have received a warning for spamming."));
-						player.sendMessage(plugin.formatMessage(ChatColor.RED + "More than 3 of these will result in a 1 hour ban."));
+				plugin.pluginManager.callEvent(event);
+				
+				if (!event.isHandled()){
+					if (playerData.warningCount > 3){
+						plugin.server.dispatchCommand(plugin.server.getConsoleSender(), "ban " + playerName + " 1h");
+						plugin.dataManager.unregisterPlayer(playerName);
+						
+						plugin.server.broadcastMessage(plugin.formatMessage(ChatColor.GREEN + playerName + " has been banned for spamming."));
+					}else{
+						++playerData.warningCount;
+						
+						Player player = plugin.server.getPlayer(playerName);
+						
+						if (player != null){
+							player.sendMessage(plugin.formatMessage(ChatColor.RED + "You have received a warning for spamming."));
+							player.sendMessage(plugin.formatMessage(ChatColor.RED + "More than 3 of these will result in a 1 hour ban."));
+						}
+						
+						playerData.resetCounters();
+						playerData.resetDelays();
 					}
-					
-					playerData.resetCounters();
-					playerData.resetDelays();
 				}
 			}else{
 				playerData.resetCounters();
