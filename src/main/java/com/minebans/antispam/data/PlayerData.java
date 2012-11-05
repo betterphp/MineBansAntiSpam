@@ -4,33 +4,71 @@ import java.util.ArrayList;
 
 import org.bukkit.Location;
 
+/**
+ * The data for a single player.
+ * 
+ * @author Jacek Kuzemczak
+ */
 public class PlayerData {
 	
-	// delays between the last 50 logins and logout
+	/**
+	 * The number of ticks between data checks and resets.
+	 */
+	public static final int TIME_PERIOD = 50;
+	
+	/**
+	 * Delays between the last 50 logins.
+	 */
 	public ArrayList<Long> loginDelays;
+	
+	/**
+	 * Delays between the last 50 logouts.
+	 */
 	public ArrayList<Long> logoutDelays;
 	
-	// delays between the last 50 messages
+	/**
+	 * Delays between the last 50 messages.
+	 */
 	public ArrayList<Long> messageDelays;
 	
-	// number of logins and logouts during this 100 ticks
+	/**
+	 * Number of logins in the last time period.
+	 */
 	public int loginCount;
+	
+	/**
+	 * Number of logouts in the last time period.
+	 */
 	public int logoutCount;
 	
-	// number of messages sent during this 100 ticks
+	/**
+	 * Number of messages sent in the last time period
+	 */
 	public int messageCount;
 	
-	// the number of warnings the player has had.
+	/**
+	 * Number of warnings the player has had.
+	 */
 	public int warningCount;
 	
-	// the time the player last logged in and out
+	/**
+	 * Time the player last logged in.
+	 */
 	public long lastLoginTime;
+	
+	/**
+	 * Time the player last logged out.
+	 */
 	public long lastLogoutTime;
 	
-	// the time the last message was sent
+	/**
+	 * Time the last message was sent.
+	 */
 	public long lastMessageTime;
 	
-	// the location the player had on joining the game.
+	/**
+	 * The location that the player joined at.
+	 */
 	public Location joinLocation;
 	
 	public PlayerData(){
@@ -52,6 +90,9 @@ public class PlayerData {
 		this.lastMessageTime = 0L;
 	}
 	
+	/**
+	 * Reset the data in the delay lists.
+	 */
 	public void resetDelays(){
 		this.loginDelays.clear();
 		this.logoutDelays.clear();
@@ -59,6 +100,9 @@ public class PlayerData {
 		this.messageDelays.clear();
 	}
 	
+	/**
+	 * Reset the data in in the counters.
+	 */
 	public void resetCounters(){
 		this.loginCount = 0;
 		this.logoutCount = 0;
@@ -66,6 +110,9 @@ public class PlayerData {
 		this.messageCount = 0;
 	}
 	
+	/**
+	 * Reset the time data.
+	 */
 	public void resetTimes(){
 		this.lastLoginTime = 0L;
 		this.lastLogoutTime = 0L;
@@ -73,6 +120,9 @@ public class PlayerData {
 		this.lastMessageTime = 0L;
 	}
 	
+	/**
+	 * Reset all data.
+	 */
 	public void resetAll(){
 		this.resetDelays();
 		this.resetCounters();

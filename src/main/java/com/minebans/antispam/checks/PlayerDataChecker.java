@@ -82,7 +82,7 @@ public class PlayerDataChecker extends BaseTask<AntiSpam> {
 					plugin.server.dispatchCommand(plugin.server.getConsoleSender(), "ban " + playerName + " 1h");
 					plugin.dataManager.unregisterPlayer(playerName);
 					
-					plugin.server.broadcastMessage(plugin.formatMessage(ChatColor.GREEN + playerName + " has been auto banned for spamming."));
+					plugin.server.broadcastMessage(plugin.formatMessage(ChatColor.GREEN + playerName + " has been banned for spamming."));
 				}else{
 					++playerData.warningCount;
 					
@@ -90,7 +90,7 @@ public class PlayerDataChecker extends BaseTask<AntiSpam> {
 					
 					if (player != null){
 						player.sendMessage(plugin.formatMessage(ChatColor.RED + "You have received a warning for spamming."));
-						player.sendMessage(plugin.formatMessage(ChatColor.RED + "More than three of these will result in a 30 minute ban."));
+						player.sendMessage(plugin.formatMessage(ChatColor.RED + "More than 3 of these will result in a 1 hour ban."));
 					}
 					
 					playerData.resetCounters();
