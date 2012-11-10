@@ -2,7 +2,7 @@ package com.minebans.antispam;
 
 import java.util.Map.Entry;
 
-import uk.co.jacekk.bukkit.baseplugin.v4.scheduler.BaseTask;
+import uk.co.jacekk.bukkit.baseplugin.v5.scheduler.BaseTask;
 
 import com.minebans.antispam.data.PlayerData;
 
