@@ -168,7 +168,7 @@ public class PlayerDataListener extends BaseListener<MineBansAntiSpam> {
 		}
 		
 		playerData.lastMessageTime = currentTime;
-		playerData.lastMessageCleaned = message.replaceAll("[^a-zA-Z]", "");
+		playerData.lastMessageCleaned = message.replaceAll("[^a-zA-Z0-9]", "");
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR)

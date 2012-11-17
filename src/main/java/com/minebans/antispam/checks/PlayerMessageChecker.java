@@ -33,7 +33,7 @@ public class PlayerMessageChecker implements Listener {
 			return true;
 		}
 		
-		if (message.replaceAll("[^a-zA-Z]", "").equalsIgnoreCase(playerData.lastMessageCleaned)){
+		if (message.replaceAll("[^a-zA-Z0-9]", "").equalsIgnoreCase(playerData.lastMessageCleaned)){
 			player.sendMessage(ChatColor.RED + "You cannot repeat your last message.");
 			return true;
 		}
