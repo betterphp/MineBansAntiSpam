@@ -1,6 +1,6 @@
 package com.minebans.antispam;
 
-import uk.co.jacekk.bukkit.baseplugin.v5.BasePlugin;
+import uk.co.jacekk.bukkit.baseplugin.v7.BasePlugin;
 
 import com.minebans.antispam.checks.PlayerDataChecker;
 import com.minebans.antispam.checks.PlayerMessageChecker;
