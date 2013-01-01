@@ -16,6 +16,8 @@ public class MineBansAntiSpam extends BasePlugin {
 		
 		this.dataManager = new PlayerDataManager();
 		
+		this.permissionManager.registerPermissions(Permission.class);
+		
 		this.pluginManager.registerEvents(new PlayerDataListener(this), this);
 		this.pluginManager.registerEvents(new PlayerMessageChecker(this), this);
 		

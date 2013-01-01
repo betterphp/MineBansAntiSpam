@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import uk.co.jacekk.bukkit.baseplugin.v7.event.BaseListener;
 
 import com.minebans.minebansantispam.MineBansAntiSpam;
+import com.minebans.minebansantispam.Permission;
 
 public class PlayerDataListener extends BaseListener<MineBansAntiSpam> {
 	
@@ -51,7 +52,7 @@ public class PlayerDataListener extends BaseListener<MineBansAntiSpam> {
 	public void onPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
 		
-		if (player.hasPermission("minebans.antispam.exempt")){
+		if (Permission.EXEMPT_ALL.has(player)){
 			return;
 		}
 		
