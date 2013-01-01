@@ -1,10 +1,10 @@
-package com.minebans.antispam;
+package com.minebans.minebansantispam;
 
 import java.util.Map.Entry;
 
 import uk.co.jacekk.bukkit.baseplugin.v7.scheduler.BaseTask;
 
-import com.minebans.antispam.data.PlayerData;
+import com.minebans.minebansantispam.data.PlayerData;
 
 public class CleanUpTask extends BaseTask<MineBansAntiSpam> {
 	

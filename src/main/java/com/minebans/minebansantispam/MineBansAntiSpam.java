@@ -1,11 +1,11 @@
-package com.minebans.antispam;
+package com.minebans.minebansantispam;
 
 import uk.co.jacekk.bukkit.baseplugin.v7.BasePlugin;
 
-import com.minebans.antispam.checks.PlayerDataChecker;
-import com.minebans.antispam.checks.PlayerMessageChecker;
-import com.minebans.antispam.data.PlayerData;
-import com.minebans.antispam.data.PlayerDataListener;
+import com.minebans.minebansantispam.checks.PlayerDataChecker;
+import com.minebans.minebansantispam.checks.PlayerMessageChecker;
+import com.minebans.minebansantispam.data.PlayerData;
+import com.minebans.minebansantispam.data.PlayerDataListener;
 
 public class MineBansAntiSpam extends BasePlugin {
 	

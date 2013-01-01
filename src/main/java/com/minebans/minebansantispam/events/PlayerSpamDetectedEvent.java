@@ -1,4 +1,4 @@
-package com.minebans.antispam.events;
+package com.minebans.minebansantispam.events;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

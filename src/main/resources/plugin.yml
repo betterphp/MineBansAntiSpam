@@ -1,6 +1,7 @@
-name: MineBansAntiSpam
-version: 0.5
-main: com.minebans.antispam.MineBansAntiSpam
+name: ${project.name}
+version: ${project.version}
+main: ${project.groupId}.${project.artifactId}.${project.name}
+website: ${project.url}
 permissions:
     minebans.antispam.exempt:
         description: Players will this permission will be allowed to spam.

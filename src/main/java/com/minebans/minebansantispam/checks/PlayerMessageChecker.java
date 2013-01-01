@@ -1,4 +1,4 @@
-package com.minebans.antispam.checks;
+package com.minebans.minebansantispam.checks;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -8,8 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
-import com.minebans.antispam.MineBansAntiSpam;
-import com.minebans.antispam.data.PlayerData;
+import com.minebans.minebansantispam.MineBansAntiSpam;
+import com.minebans.minebansantispam.data.PlayerData;
 
 public class PlayerMessageChecker implements Listener {
 	

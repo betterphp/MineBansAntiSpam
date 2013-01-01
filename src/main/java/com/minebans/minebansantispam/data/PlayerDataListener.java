@@ -1,4 +1,4 @@
-package com.minebans.antispam.data;
+package com.minebans.minebansantispam.data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 import uk.co.jacekk.bukkit.baseplugin.v7.event.BaseListener;
 
-import com.minebans.antispam.MineBansAntiSpam;
+import com.minebans.minebansantispam.MineBansAntiSpam;
 
 public class PlayerDataListener extends BaseListener<MineBansAntiSpam> {
 	

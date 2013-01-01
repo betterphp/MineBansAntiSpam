@@ -1,4 +1,4 @@
-package com.minebans.antispam.data;
+package com.minebans.minebansantispam.data;
 
 import java.util.ArrayList;
 

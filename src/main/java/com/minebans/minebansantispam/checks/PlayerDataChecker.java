@@ -1,4 +1,4 @@
-package com.minebans.antispam.checks;
+package com.minebans.minebansantispam.checks;
 
 import java.util.Collections;
 import java.util.Map.Entry;
@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import uk.co.jacekk.bukkit.baseplugin.v7.scheduler.BaseTask;
 import uk.co.jacekk.bukkit.baseplugin.v7.util.ListUtils;
 
-import com.minebans.antispam.MineBansAntiSpam;
-import com.minebans.antispam.data.PlayerData;
-import com.minebans.antispam.events.PlayerSpamDetectedEvent;
+import com.minebans.minebansantispam.MineBansAntiSpam;
+import com.minebans.minebansantispam.data.PlayerData;
+import com.minebans.minebansantispam.events.PlayerSpamDetectedEvent;
 
 public class PlayerDataChecker extends BaseTask<MineBansAntiSpam> {
 	
