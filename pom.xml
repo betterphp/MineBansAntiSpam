@@ -2,14 +2,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.minebans</groupId>
 	<artifactId>minebansantispam</artifactId>
+	<name>MineBansAntiSpam</name>
 	<version>0.5-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	
-	<name>MineBansAntiSpam</name>
 	<url>http://dev.bukkit.org/server-mods/minebansantispam/</url>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<!-- this page does not exist yet -->
+		<upload.dbo.category>server-mods</upload.dbo.category>
+		<upload.dbo.slug>minebansantispam</upload.dbo.slug>
 	</properties>
 	
 	<repositories>
