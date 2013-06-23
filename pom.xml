@@ -5,17 +5,17 @@
 	<name>MineBansAntiSpam</name>
 	<version>0.5-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<url>http://dev.bukkit.org/server-mods/minebansantispam/</url>
+	<url>http://dev.bukkit.org/bukkit-plugins/minebansantispam/</url>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
 		<!-- this page does not exist yet -->
-		<upload.dbo.category>server-mods</upload.dbo.category>
+		<upload.dbo.category>bukkit-plugins</upload.dbo.category>
 		<upload.dbo.slug>minebansantispam</upload.dbo.slug>
 		
-		<baseplugin.version>11.1</baseplugin.version>
-		<baseplugin.package>11_1</baseplugin.package>
+		<baseplugin.version>12</baseplugin.version>
+		<baseplugin.package>12</baseplugin.package>
 	</properties>
 	
 	<repositories>
